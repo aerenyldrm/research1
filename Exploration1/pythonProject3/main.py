@@ -2,7 +2,7 @@
 import pandas as p
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn import metrics
 import matplotlib.pyplot as plot
 
@@ -47,11 +47,11 @@ y = df["Recurred"]
 
 # 5 split data into train and test sets
 # utilize 80% for training 20% for testing
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=31)
 
-# 6 build random forest model
+# 6 build gradient boosting model
 # train a decision tree utilizing scikit_learn
-model = RandomForestClassifier(n_estimators=11, random_state=42)
+model = GradientBoostingClassifier(random_state=19, n_estimators=47, learning_rate=0.07)
 
 # train model
 model.fit(x_train, y_train)
@@ -72,5 +72,5 @@ plot.figure(figsize=(12, 6))
 feature_importances = model.feature_importances_
 indices = feature_importances.argsort()[::-1]
 plot.barh(x.columns[indices], feature_importances[indices])
-plot.xlabel("Random Forest Feature Importance")
+plot.xlabel("Gradient Boosting Feature Importance")
 plot.show()
