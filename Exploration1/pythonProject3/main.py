@@ -47,7 +47,7 @@ y = df["Recurred"]
 
 # 5 split data into train and test sets
 # utilize 80% for training 20% for testing
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=31)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
 # 6 build gradient boosting model
 # train a decision tree utilizing scikit_learn
