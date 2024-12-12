@@ -1,5 +1,4 @@
 from zipfile import error
-
 import matlab.engine
 import numpy as n
 import pandas as p
@@ -94,7 +93,7 @@ class SquareRootOptimization:
 
     def adaptive_optimization(self):
         # initial parameter exploration
-        initial_parameters = n.linspace(1, 100, 1000)  # 100 initial samples
+        initial_parameters = n.linspace(1, 100, 1000)  # 1000 initial samples
         initial_dataset = self.generate_matlab_dataset(initial_parameters)
 
         x = initial_dataset["parameter"].values.reshape(-1, 1).astype('float32')
