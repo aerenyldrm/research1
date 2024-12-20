@@ -12,15 +12,15 @@ import matplotlib.pyplot as plot
 from xgboost import plot_importance
 
 # 1 load dataset from .csv file
-data = p.read_csv(r"C:\Users\aeren\Downloads\avv_v0.csv")
+data = p.read_csv(r"C:\Users\aeren\Downloads\avv.csv")
 
 # 2 understand dataset
 print(data.head(7)) # preview first 7 rows
 print(f"{data.info()}\n") # dataset information
 
 # 3 determine features and target
-x = data.iloc[:, :-1] # features
-y = data.iloc[:, -1] # target
+x = data.iloc[:, :-2] # features
+y = data.iloc[:, -2] # target
 
 # 4 split dataset into train and test sets
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)

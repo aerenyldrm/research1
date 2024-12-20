@@ -16,7 +16,7 @@ class Curriculum:
         self.matlab = me.start_matlab()
 
     @staticmethod
-    def set_seeds(seed=2):
+    def set_seeds(seed):
         # set seeds for reproducibility
         rd.seed(seed)
         np.random.seed(seed)
@@ -179,7 +179,7 @@ class Curriculum:
 
 if __name__ == "__main__":
     # set seed for reproducibility
-    Curriculum().set_seeds(1)
+    Curriculum().set_seeds(11)
 
     # curriculum
     Curriculum().curriculum()
