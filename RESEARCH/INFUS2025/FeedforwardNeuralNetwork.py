@@ -50,20 +50,21 @@ class NN:
         x_train = scaler_x.fit_transform(x_train)
         x_test = scaler_x.transform(x_test)
 
+        """
         # convert back y_train and y_test back to 1d lists
         y_train = [item[0] for item in y_train]
         y_test = [item[0] for item in y_test]
+        """
 
-        return x_train, x_test, np.array(y_train), np.array(y_test)
+        return x_train, x_test, y_train, y_test
 
     @staticmethod
-    def construct_ann(x_train, x_test, y_train, y_test):
+    def construct_ann(x_train, y_train):
         # construct ANN
         model_ann = Sequential([
-            Dense(128, activation="relu"),
-            Dense(128, activation="relu"),
-            Dense(128, activation="relu"),
-            Dense(128, activation="relu"),
+            Dense(100, activation="relu"),
+            Dense(100, activation="relu"),
+            Dense(100, activation="relu"),
             Dense(1, activation="linear")
         ])
 
@@ -71,7 +72,7 @@ class NN:
         model_ann.compile(optimizer="adam", loss="mse", metrics=["mse"])
 
         # train model
-        model_ann.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=200, batch_size=46, verbose=1)
+        model_ann.fit(x_train, y_train, epochs=100, batch_size=64, verbose=1)
 
         return model_ann
 
@@ -84,10 +85,10 @@ class NN:
 
 if __name__ == "__main__":
     # initialize object to utilize it
-    object_NN = NN(r"C:\Users\aeren\Downloads\merge_5bc.csv")
+    object_NN = NN(r"C:\Users\aeren\Desktop\TEDU\ResearchProjectWithBengisenPekmen\Explorations\Exploration4\INFUS2025\dataset\avv_variance_3040.csv")
 
     # set seed exactly same for reproducibility
-    object_NN.set_seeds(90) # 5
+    object_NN.set_seeds(5)
 
     # understand attached dataset
     preprocessed_dataset = object_NN.understand_dataset()
@@ -95,9 +96,7 @@ if __name__ == "__main__":
     # come up with ANN
     particular_model_ann = object_NN.construct_ann(
         preprocessed_dataset[0],
-        preprocessed_dataset[1],
         preprocessed_dataset[2],
-        preprocessed_dataset[3]
     )
 
     # predict and evaluate constructed specific model
