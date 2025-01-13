@@ -1,13 +1,13 @@
 import random as rd
-import tensorflow as tf
 import keras as kr
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import mean_squared_error
-from keras.api.models import Sequential
+import tensorflow as tf
 from keras.api.layers import Dense
+from keras.api.models import Sequential
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
 
 class NN:
     # initialize class with dataset path
@@ -49,12 +49,6 @@ class NN:
         # standardize features
         x_train = scaler_x.fit_transform(x_train)
         x_test = scaler_x.transform(x_test)
-
-        """
-        # convert back y_train and y_test back to 1d lists
-        y_train = [item[0] for item in y_train]
-        y_test = [item[0] for item in y_test]
-        """
 
         return x_train, x_test, y_train, y_test
 
