@@ -1,4 +1,6 @@
+import numpy as np
 import pandas as pd
+import random as rd
 import seaborn as sns
 import matplotlib.pyplot as plot
 from sklearn.tree import plot_tree
@@ -6,14 +8,20 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 
-pd.set_option("display.max_columns", None)
-data_frame = pd.read_csv(r"C:\Users\aeren\Desktop\TEDU\ResearchProjectWithBengisenPekmen\Explorations\RESEARCH\INFUS2025\dataset\avv_variance_3040 - feature_inclusion.csv")
+# set seed for reproducibility
+seed = 6
+rd.seed(seed)
+np.random.seed(seed)
 
-print(data_frame.head()) # for debug
+data = pd.read_csv(r"C:\Users\aeren\Desktop\TEDU\ResearchProjectWithBengisenPekmen\Explorations\RESEARCH\INFUS2025\dataset\avv_variance_3040 - feature_inclusion.csv").values
+
+# shuffle data to prevent incorrect patterns
+indices_shuffle = np.random.permutation(len(data))
+data = data[indices_shuffle]
 
 # determine features and target
-x = data_frame.drop(labels="avgA", axis=1).drop(labels="Navg", axis=1)
-y = data_frame["Navg"]
+x = data[:, :-2] # features
+y = data[:, -2] # target
 
 print(x) # for debug
 print(y) # for debug
@@ -35,10 +43,9 @@ print(f" Decision Tree Mean Squared Error:\t{mean_squared_error(y_test, y_predic
 
 # visualize tree
 plot.figure(figsize=(16, 9))
-plot_tree(model, feature_names=x.columns, max_depth=3, fontsize=6, filled=True)
+plot_tree(model, feature_names=["Re", "Gr", "Ha", "Rm"], max_depth=3, fontsize=6, filled=True)
 plot.show()
 
-# plots
 plot.figure(figsize=(16, 9))
 plot.scatter(y_test, y_predict, alpha=0.5, color="black")
 plot.plot([y.min(), y.max()], [y.min(), y.max()], color="black")
@@ -47,9 +54,8 @@ plot.ylabel("Predicted Values")
 plot.title("Actual and Predicted Values Data")
 plot.show()
 
-residuals = y_test - y_predict
 plot.figure(figsize=(16, 9))
-plot.scatter(y_test, residuals, alpha=0.5, color="black")
+plot.scatter(y_test, y_test - y_predict, alpha=0.5, color="black")
 plot.axhline(0, color="black")
 plot.xlabel("Actual Values")
 plot.ylabel("Residuals (Actual Values - Predicted Values")
@@ -58,7 +64,7 @@ plot.show()
 
 # feature importance
 feature_importance = model.feature_importances_
-importance_data_frame = pd.DataFrame({"Feature": x.columns, "Importance": feature_importance}).sort_values(by="Importance", ascending=False)
+importance_data_frame = pd.DataFrame({"Feature":["Re", "Gr", "Ha", "Rm"], "Importance": feature_importance}).sort_values(by="Importance", ascending=False)
 plot.figure(figsize=(16, 9))
 sns.barplot(x="Importance", y="Feature", data=importance_data_frame, color="black")
 plot.title("Feature Importance")
