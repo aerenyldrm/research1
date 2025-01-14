@@ -1,0 +1,8 @@
+1. whereas shuffle is necessary for neural network, it has nothing to do with decision tree, so as for ensemble methods such as random forests and boosts
+2. data shuffle is critical for neural network as well due to sequential nature of neural networks with respect to batch logic
+3. it is critical to arrange batch size parallel to data variance of most important parameter since it effects update of weights efficiently
+4. for this, neural network is much more suitable since it is able to generalize more, tree is greedy, especially consider out of range or alternative data
+5. shuffle delusion for CARTs
+6. Regression tree is not suitable that much since target is not categorical or binary, it is continuous value. Then it is not productive at all
+7. future research 1, effects of data variance comparison to entire possible combinations with low variance
+8. future research 2, inconsistency of theory and practice, possibly, really Re is more important
